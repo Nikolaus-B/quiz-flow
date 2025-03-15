@@ -1,10 +1,11 @@
 import "./App.css";
+import AchievementChart from "./components/AchievementChart/AchievementChart";
 
 function App() {
   return (
     <main>
-      <section>
-        <p>App</p>
+      <section className="px-[2.4rem]">
+        <AchievementChart />
       </section>
     </main>
   );
