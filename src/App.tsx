@@ -14,7 +14,7 @@ function App() {
     <Routes>
       <Route element={<AppLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/goal-multiform" element={<GoalMultiformPage />} />
+        <Route path="/goal-multiform/:goalId" element={<GoalMultiformPage />} />
         <Route
           path="/personal-plan-summary"
           element={<PersonalPlanSummaryPage />}

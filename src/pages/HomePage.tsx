@@ -18,12 +18,12 @@ function HomePage() {
         What is your main goal?
       </p>
       <div className="flex gap-[1.2rem] mb-[1.2rem]">
-        <Link to="/">
+        <Link to="goal-multiform/build-connection">
           <Button variant={"select"} size={"regularSelect"}>
             Build a deep connection
           </Button>
         </Link>
-        <Link to="/">
+        <Link to="/goal-multiform/emotional-attraction">
           <Button variant={"select"} size={"regularSelect"}>
             Create emotional attraction
           </Button>

@@ -1,8 +1,14 @@
+import MultiStepForm from "@/components/forms/MultiStepForm/MultiStepForm";
+import { GoalIDType } from "@/models/MultiStepData";
+import { useParams } from "react-router";
+
 function GoalMultiformPage() {
+  const { goalId } = useParams();
+
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Goal Multiform Page</h1>
-    </div>
+    <section className="min-w-[32.7rem]">
+      <MultiStepForm goalId={goalId as GoalIDType} />
+    </section>
   );
 }
 
