@@ -31,13 +31,13 @@ const CustomDot: FC<CustomDotProps> = ({
       {payload.label && (
         <foreignObject
           x={-25}
-          y={"-25%"}
+          y={"-30%"}
           width="50"
           height="30"
           className="overflow-visible"
         >
           <div
-            className="bg-white px-[7px] py-[8px] rounded-[5px] text-[1rem] font-bold flex items-center justify-center"
+            className="bg-white px-[7px] py-[8px] rounded-[5px] text-[1.2rem] font-bold flex items-center justify-center"
             style={{ boxShadow: "0px 3px 11px rgba(0, 0, 0, 0.15)" }}
           >
             {payload.label}

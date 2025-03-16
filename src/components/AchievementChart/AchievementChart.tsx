@@ -8,7 +8,7 @@ import {
   Cell,
   ComposedChart,
 } from "recharts";
-import CustomDot from "../CustomDot/CustomDot";
+import CustomDot from "../elements/CustomDot/CustomDot";
 import { FC } from "react";
 
 const AchievementChart: FC = () => {
