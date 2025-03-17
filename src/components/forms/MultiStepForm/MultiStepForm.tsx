@@ -8,7 +8,9 @@ import { Input } from "@/components/ui/input";
 import { MultiStepsDataType, StepType } from "@/models/MultiStepData";
 import EmojiCheckbox from "@/components/elements/EmojiCheckbox/EmojiCheckbox";
 import Logo from "@/components/elements/Logo/Logo";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import EmojiRadioGroup from "@/components/elements/EmojiRadioGroup/EmojiRadioGroup";
+import { getMultiFormLabel } from "@/lib/getMultiFormLabel";
 
 const stepVariants = {
   initial: { opacity: 0, x: -50 },
@@ -24,7 +26,16 @@ function MultiStepForm({ goalId }: { goalId: keyof MultiStepsDataType }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+    clearErrors,
+  } = useForm({ mode: "onChange" });
+
+  const navigate = useNavigate();
 
   const handleToggle = (value: string) => {
     setSelectedValues((prev) =>
@@ -37,10 +48,22 @@ function MultiStepForm({ goalId }: { goalId: keyof MultiStepsDataType }) {
   const onSubmit = (data: Record<string, string | string[]>) => {
     if (currentStep < filteredSteps.length - 1) {
       setCurrentStep(currentStep + 1);
+      clearErrors();
     } else {
       console.log("Final Data: ", { ...data, selectedValues });
+      navigate("/personal-plan-summary");
     }
   };
+
+  const emailValue = watch("email", "");
+  const radioValue = watch(filteredSteps[currentStep]?.name || "", "");
+
+  const isButtonDisabled =
+    (!selectedValues.length &&
+      filteredSteps[currentStep]?.type !== "email" &&
+      filteredSteps[currentStep]?.type !== "radio") ||
+    (filteredSteps[currentStep]?.type === "email" && !emailValue) ||
+    (filteredSteps[currentStep]?.type === "radio" && !radioValue);
 
   return (
     <motion.div
@@ -49,7 +72,6 @@ function MultiStepForm({ goalId }: { goalId: keyof MultiStepsDataType }) {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="p-4"
     >
       <Progress
         value={((currentStep + 1) / filteredSteps.length) * 100}
@@ -61,9 +83,12 @@ function MultiStepForm({ goalId }: { goalId: keyof MultiStepsDataType }) {
             type="button"
             variant={"round"}
             size="regulatRound"
-            onClick={() => setCurrentStep(currentStep - 1)}
+            onClick={() => {
+              clearErrors();
+              setCurrentStep(currentStep - 1);
+            }}
           >
-            Back
+            <img src="/arrow-left.svg" alt="Logo" />
           </Button>
         ) : (
           <Link to="/">
@@ -80,31 +105,52 @@ function MultiStepForm({ goalId }: { goalId: keyof MultiStepsDataType }) {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-center">
-        <label className="font-semibold text-[2.5rem] mx-[2.7rem] text-center">
-          {filteredSteps[currentStep]?.label}
-        </label>
-        {filteredSteps[currentStep]?.type === "text" && (
-          <Input {...register(filteredSteps[currentStep]?.name)} type="text" />
-        )}
-        {filteredSteps[currentStep]?.type === "email" && (
-          <Input {...register(filteredSteps[currentStep]?.name)} type="email" />
-        )}
-        {filteredSteps[currentStep]?.type === "radio" &&
-          filteredSteps[currentStep]?.options?.map((option) => (
-            <label
-              key={option.value}
-              className="block flex items-center space-x-2 border p-3 rounded-lg cursor-pointer"
-            >
-              <input
-                type="radio"
-                {...register(filteredSteps[currentStep]?.name)}
-                value={option.value}
-                className="hidden"
+        <div className="flex flex-col gap-[1.2rem] mb-[7.4rem]">
+          <label className=" font-semibold text-[2.5rem] mx-auto text-center ">
+            {filteredSteps[currentStep]?.label}
+          </label>
+          <label className="text-[1.2rem] text-[#666666] font-light">
+            {getMultiFormLabel(filteredSteps[currentStep].type)}
+          </label>
+        </div>
+        <div className=" relative">
+          {filteredSteps[currentStep]?.type === "email" && (
+            <>
+              <Input
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email format",
+                  },
+                })}
+                type="email"
+                className={`w-full h-auto px-[1.2rem] py-[1.2rem] text-[1.6rem] leading-[120%] rounded-lg focus-visible:ring-0 border transition-all focus:ring-0 focus:outline-none placeholder-gray-400 focus:border-[#31728D] disabled:bg-gray-100 disabled:cursor-not-allowed ${
+                  errors.email
+                    ? "border-[#EA6747] focus:border-[#EA6747]"
+                    : "border-gray-300"
+                } `}
+                placeholder="example@gmail.com"
+                // disabled={isSubmitting}
               />
-              <span className="text-lg">{option.emoji}</span>
-              <span>{option.value}</span>
-            </label>
-          ))}
+              {errors.email && (
+                <p className="absolute bottom-[-1.4rem] text-[#EA6747] font-semibold text-sm">
+                  {String(errors.email.message)}
+                </p>
+              )}
+            </>
+          )}
+        </div>
+        {filteredSteps[currentStep]?.type === "radio" && (
+          <EmojiRadioGroup
+            name={filteredSteps[currentStep]?.name}
+            options={filteredSteps[currentStep]?.options || []}
+            selectedValue={radioValue}
+            onChange={(value) =>
+              setValue(filteredSteps[currentStep]?.name, value)
+            }
+          />
+        )}
         {filteredSteps[currentStep]?.type === "checkbox" &&
           filteredSteps[currentStep]?.options?.map((option) => (
             <EmojiCheckbox
@@ -115,11 +161,13 @@ function MultiStepForm({ goalId }: { goalId: keyof MultiStepsDataType }) {
               onChange={() => handleToggle(option.value)}
             />
           ))}
-        <div className="flex justify-between">
-          <Button type="submit">
-            {currentStep < filteredSteps.length - 1 ? "Next" : "Submit"}
-          </Button>
-        </div>
+        <Button
+          type="submit"
+          disabled={isButtonDisabled}
+          className="mt-[1.2rem]"
+        >
+          {currentStep < filteredSteps.length - 1 ? "Continue" : "Get results"}
+        </Button>
       </form>
     </motion.div>
   );

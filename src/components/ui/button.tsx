@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+          "w-full px-[116px] py-[14px] bg-[#31728D] text-[1.8rem] text-[#FFFFFF] font-bold rounded-xl hover:bg-[#31728D]  focus:bg-[#31728D] disabled:bg-[#E8E6EF] disabled:text-[#B7B4C1]",
         select:
           "px-[1rem] py-[1.4rem] bg-[#FFFFFF] text-[#111111] text-[1.4rem] font-bold border border-[#D2CFDF] hover:border-[#31728D] focus:border-[#31728D] transition-colors duration-200 text-center whitespace-normal justify-center items-center leading-normal flex",
         text: "bg-transparent text-[#111111] font-bold underline underline-offset-4 hover:text-[#31728D] transition-colors duration-200",

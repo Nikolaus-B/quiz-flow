@@ -17,7 +17,7 @@ export const multiStepsData: MultiStepsDataType = {
     {
       name: "skills",
       label: "What skills do you want to improve?",
-      type: "checkbox",
+      type: "radio",
       options: [
         { value: "Listening", emoji: "👂" },
         { value: "Confidence", emoji: "💪" },
@@ -44,7 +44,7 @@ export const multiStepsData: MultiStepsDataType = {
     {
       name: "strengths",
       label: "What are your social strengths?",
-      type: "checkbox",
+      type: "radio",
       options: [
         { value: "Empathy", emoji: "❤️" },
         { value: "Humor", emoji: "😂" },

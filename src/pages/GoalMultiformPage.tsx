@@ -6,7 +6,7 @@ function GoalMultiformPage() {
   const { goalId } = useParams();
 
   return (
-    <section className="min-w-[32.7rem]">
+    <section className="min-w-[32.7rem] px-[2.7rem]">
       <MultiStepForm goalId={goalId as GoalIDType} />
     </section>
   );

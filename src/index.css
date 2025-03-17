@@ -66,13 +66,12 @@ html {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-
   min-height: 100vh;
 }
 
+button {
+  cursor: pointer;
+}
 svg {
   overflow: visible !important;
 }
