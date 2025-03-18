@@ -1,11 +1,21 @@
 import AchievementChart from "@/components/AchievementChart/AchievementChart";
 import Logo from "@/components/elements/Logo/Logo";
 import { Button } from "@/components/ui/button";
+import { useAppDispatch } from "@/store/store";
+import { fetchUserData } from "@/store/user/userOperations";
+
+import { useEffect } from "react";
 import { Link } from "react-router";
 
 function HomePage() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
+
   return (
-    <section className="flex flex-col items-center px-[2.4rem]">
+    <section className="section flex flex-col items-center ">
       <Logo />
       <h3 className="my-[1.2rem] font-bold text-[2.5rem]">
         Change your <span className="text-[#31728D]">love life</span>

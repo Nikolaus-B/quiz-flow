@@ -76,6 +76,10 @@ svg {
   overflow: visible !important;
 }
 
+.section {
+  padding: 0 2.4rem;
+}
+
 .recharts-cartesian-grid-horizontal line:last-of-type {
   display: none;
 }

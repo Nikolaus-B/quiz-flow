@@ -14,6 +14,8 @@ const buttonVariants = cva(
         select:
           "px-[1rem] py-[1.4rem] bg-[#FFFFFF] text-[#111111] text-[1.4rem] font-bold border border-[#D2CFDF] hover:border-[#31728D] focus:border-[#31728D] transition-colors duration-200 text-center whitespace-normal justify-center items-center leading-normal flex",
         text: "bg-transparent text-[#111111] font-bold underline underline-offset-4 hover:text-[#31728D] transition-colors duration-200",
+        transparent:
+          "px-[4.2rem] py-[1.4rem] bg-transparent text-[#111111] text-[1.6rem] font-bold border border-[#D2CFDF] hover:text-[#31728D] hover:border-[#31728D] transition-colors duration-200",
         round:
           "border border-[#D2CFDF] hover:border-[#31728D] focus:border-[#31728D] transition-colors duration-200 text-center rounded-full",
       },

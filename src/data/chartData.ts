@@ -1,3 +1,11 @@
+export interface ChartData {
+  name?: string;
+  value: number;
+  curve: number;
+  color: string;
+  label?: string;
+}
+
 export const chartData = [
   { name: "WEEK 1", value: 41, curve: 32, color: "#A9DEF4", label: "You" },
   { value: 62, curve: 50, color: "#9CC9DC" },
