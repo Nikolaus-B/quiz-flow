@@ -1,10 +1,10 @@
-import ProgressSection from "@/components/ProgressSection/ProgressSection";
+import ProgressSection from "@/components/sections/ProgressSection/ProgressSection";
 
 function PersonalPlanSummaryPage() {
   return (
-    <section className="section">
+    <>
       <ProgressSection />
-    </section>
+    </>
   );
 }
 

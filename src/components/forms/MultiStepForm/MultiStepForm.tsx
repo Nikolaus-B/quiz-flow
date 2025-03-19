@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { multiStepsData } from "@/data/multiStepsData";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import { MultiStepsDataType, StepType } from "@/models/MultiStepData";
@@ -11,6 +10,8 @@ import Logo from "@/components/elements/Logo/Logo";
 import { Link, useNavigate } from "react-router";
 import EmojiRadioGroup from "@/components/elements/EmojiRadioGroup/EmojiRadioGroup";
 import { getMultiFormLabel } from "@/lib/getMultiFormLabel";
+import { useAppSelector } from "@/store/store";
+import { selectMultiStepsData } from "@/store/user/userSelectors";
 
 const stepVariants = {
   initial: { opacity: 0, x: -50 },
@@ -19,6 +20,8 @@ const stepVariants = {
 };
 
 function MultiStepForm({ goalId }: { goalId: keyof MultiStepsDataType }) {
+  const multiStepsData = useAppSelector(selectMultiStepsData);
+
   const filteredSteps: StepType[] = [
     ...(multiStepsData[goalId] || []),
     ...multiStepsData["default"],
@@ -79,21 +82,23 @@ function MultiStepForm({ goalId }: { goalId: keyof MultiStepsDataType }) {
       />
       <div className="flex gap-[6.3rem] items-center justify-center mb-[4.2rem]">
         {currentStep > 0 ? (
-          <Button
-            type="button"
-            variant={"round"}
-            size="regulatRound"
-            onClick={() => {
-              clearErrors();
-              setCurrentStep(currentStep - 1);
-            }}
-          >
-            <img src="/arrow-left.svg" alt="Logo" />
-          </Button>
+          <div className="w-[40px] h-[40px]">
+            <Button
+              type="button"
+              variant={"round"}
+              size="regulatRound"
+              onClick={() => {
+                clearErrors();
+                setCurrentStep(currentStep - 1);
+              }}
+            >
+              <img src="/arrow-left.svg" className="w-[12px]" alt="Logo" />
+            </Button>
+          </div>
         ) : (
           <Link to="/">
             <Button type="button" variant={"round"} size="regulatRound">
-              <img src="/arrow-left.svg" alt="Logo" />
+              <img src="/arrow-left.svg" alt="Logo" className="w-[12px]" />
             </Button>
           </Link>
         )}
