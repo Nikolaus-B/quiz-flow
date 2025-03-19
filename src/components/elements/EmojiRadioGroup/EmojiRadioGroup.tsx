@@ -30,7 +30,9 @@ const EmojiRadioGroup: React.FC<EmojiRadioGroupProps> = ({
           )}
         >
           <span className="flex items-center space-x-2 text-[1.6rem]">
-            {option.emoji && <span className="text-lg">{option.emoji}</span>}
+            {option.emoji && (
+              <span className="text-[1.6rem]">{option.emoji}</span>
+            )}
             <span className="text-black font-medium">{option.value}</span>
           </span>
           <RadioGroupItem

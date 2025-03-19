@@ -20,7 +20,7 @@ const EmojiCheckbox: React.FC<EmojiCheckboxProps> = ({
       }`}
     >
       <span className="flex items-center space-x-2 text-[1.6rem]">
-        {emoji && <span className="text-lg">{emoji}</span>}
+        {emoji && <span className="text-[1.6rem]">{emoji}</span>}
         <span className="text-black font-medium">{value}</span>
       </span>
       <Checkbox
